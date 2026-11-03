@@ -1,0 +1,931 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  --hotela-primary: #8B1A1D;
+  --hotela-primary-hover: #741417;
+  --hotela-primary-dark: #5C1012;
+  --hotela-secondary: #B5121B;
+  --hotela-user-bubble: #A81724;
+  --hotela-accent: #D94A55;
+  --hotela-white: #FFFFFF;
+  --hotela-background: #F8F6F7;
+  --hotela-bot-bubble: #F3F4F6;
+  --hotela-text: #1F1A2B;
+  --hotela-text-muted: #6B7280;
+  --hotela-border: #E5E7EB;
+  --hotela-border-light: #F0F0F0;
+  --hotela-font: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* Reset inside widget */
+.hotela-widget-root {
+  font-family: var(--hotela-font);
+  color: var(--hotela-text);
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+}
+
+.hotela-widget-root *,
+.hotela-widget-root *::before,
+.hotela-widget-root *::after {
+  box-sizing: border-box;
+}
+
+/* ==========================================================================
+   FLOATING LAUNCHER
+   ========================================================================== */
+.hotela-launcher-container {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 999999;
+}
+
+.hotela-floating-launcher {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: var(--hotela-white);
+  border: 3px solid rgba(139, 26, 29, 0.15);
+  box-shadow: 0 12px 28px rgba(31, 26, 43, 0.18), 0 4px 12px rgba(139, 26, 29, 0.22);
+  cursor: pointer;
+  padding: 0;
+  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+}
+
+.hotela-floating-launcher:hover {
+  transform: translateY(-4px) scale(1.05);
+  border-color: var(--hotela-primary);
+  box-shadow: 0 16px 36px rgba(31, 26, 43, 0.24), 0 6px 16px rgba(139, 26, 29, 0.3);
+}
+
+.hotela-floating-launcher:focus-visible {
+  outline: 3px solid var(--hotela-primary);
+  outline-offset: 3px;
+}
+
+.hotela-launcher-avatar {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.hotela-launcher-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Tooltip on Launcher */
+.hotela-launcher-tooltip {
+  position: absolute;
+  bottom: calc(100% + 12px);
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  background: #1F1A2B;
+  color: #FFFFFF;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 8px;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.hotela-launcher-tooltip::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: #1F1A2B;
+}
+
+.hotela-floating-launcher:hover .hotela-launcher-tooltip,
+.hotela-floating-launcher:focus .hotela-launcher-tooltip {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ==========================================================================
+   EXPANDED CHATBOT WINDOW
+   ========================================================================== */
+.hotela-window {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 999999;
+  width: min(440px, calc(100vw - 32px));
+  height: min(720px, calc(100vh - 48px));
+  background: var(--hotela-primary);
+  border-radius: 24px;
+  box-shadow: 0 24px 60px rgba(31, 26, 43, 0.3), 0 8px 24px rgba(139, 26, 29, 0.25);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: hotela-window-in 0.25s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes hotela-window-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Header */
+.hotela-window-header {
+  padding: 14px 16px 18px;
+  color: var(--hotela-white);
+  position: relative;
+  flex-shrink: 0;
+}
+
+.hotela-header-controls {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.hotela-header-icon-btn {
+  background: rgba(0, 0, 0, 0.2);
+  color: var(--hotela-white);
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.18s ease, transform 0.18s ease;
+}
+
+.hotela-header-icon-btn:hover {
+  background: rgba(0, 0, 0, 0.35);
+  transform: scale(1.08);
+}
+
+.hotela-header-icon-btn:focus-visible {
+  outline: 2px solid var(--hotela-white);
+  outline-offset: 2px;
+}
+
+.hotela-header-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 2px 8px 8px;
+}
+
+.hotela-header-logo-circle {
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  background: var(--hotela-white);
+  display: grid;
+  place-items: center;
+  margin-bottom: 10px;
+  padding: 8px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.14);
+}
+
+.hotela-header-logo-circle img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.hotela-header-title {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  line-height: 1.2;
+  color: var(--hotela-white);
+}
+
+.hotela-header-subtitle {
+  margin: 4px 0 0;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.85);
+  font-weight: 400;
+}
+
+/* ==========================================================================
+   CHAT BODY AREA (WHITE CARD)
+   ========================================================================== */
+.hotela-chat-body {
+  flex: 1;
+  background: var(--hotela-white);
+  border-radius: 20px;
+  margin: 0 10px 10px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  min-height: 0;
+}
+
+/* Date Pill */
+.hotela-date-pill-wrapper {
+  text-align: center;
+  padding: 10px 0 6px;
+  border-bottom: 1px solid var(--hotela-border-light);
+  flex-shrink: 0;
+}
+
+.hotela-date-pill {
+  font-size: 11px;
+  color: var(--hotela-text-muted);
+  background: #F3F4F6;
+  padding: 3px 12px;
+  border-radius: 999px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+}
+
+/* Messages Scroll Container */
+.hotela-messages-scroll-area {
+  flex: 1;
+  overflow-y: auto;
+  padding: 14px 14px 6px;
+  scroll-behavior: smooth;
+  min-height: 0;
+}
+
+.hotela-messages-scroll-area::-webkit-scrollbar {
+  width: 5px;
+}
+.hotela-messages-scroll-area::-webkit-scrollbar-track {
+  background: transparent;
+}
+.hotela-messages-scroll-area::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.12);
+  border-radius: 10px;
+}
+
+/* Message Rows */
+.hotela-messages-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.hotela-message-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  animation: hotela-message-fade 0.2s ease-out both;
+}
+
+@keyframes hotela-message-fade {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hotela-message-row.is-user {
+  justify-content: flex-end;
+}
+
+.hotela-message-row.is-bot {
+  justify-content: flex-start;
+}
+
+.hotela-bot-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #FCECEE;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  padding: 5px;
+  margin-top: 2px;
+}
+
+.hotela-bot-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.hotela-message-content-wrapper {
+  max-width: 78%;
+  display: flex;
+  flex-direction: column;
+}
+
+.hotela-message-row.is-user .hotela-message-content-wrapper {
+  align-items: flex-end;
+}
+
+.hotela-message-bubble {
+  padding: 10px 14px;
+  border-radius: 18px;
+  font-size: 13.5px;
+  line-height: 1.5;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+.hotela-message-bubble.user {
+  background: var(--hotela-user-bubble);
+  color: var(--hotela-white);
+  border-bottom-right-radius: 4px;
+}
+
+.hotela-message-bubble.user p {
+  margin: 0;
+  color: var(--hotela-white);
+}
+
+.hotela-message-bubble.bot {
+  background: var(--hotela-bot-bubble);
+  color: var(--hotela-text);
+  border-bottom-left-radius: 4px;
+}
+
+.hotela-message-bubble.bot p {
+  margin: 0 0 8px;
+}
+.hotela-message-bubble.bot p:last-child {
+  margin-bottom: 0;
+}
+
+.hotela-message-bubble.bot ul,
+.hotela-message-bubble.bot ol {
+  margin: 6px 0;
+  padding-left: 20px;
+}
+
+.hotela-message-bubble.bot li {
+  margin-bottom: 4px;
+}
+
+.hotela-message-bubble.bot strong {
+  color: #111827;
+}
+
+.hotela-message-bubble.bot a {
+  color: var(--hotela-primary);
+  text-decoration: underline;
+  font-weight: 600;
+}
+
+.hotela-message-bubble.bot table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 8px 0;
+  font-size: 12px;
+}
+
+.hotela-message-bubble.bot th,
+.hotela-message-bubble.bot td {
+  border: 1px solid var(--hotela-border);
+  padding: 4px 8px;
+  text-align: left;
+}
+
+.hotela-message-bubble.bot th {
+  background: rgba(0, 0, 0, 0.05);
+  font-weight: 600;
+}
+
+.hotela-cursor-blink {
+  display: inline-block;
+  animation: hotela-blink 0.8s infinite;
+  color: var(--hotela-primary);
+  font-weight: bold;
+}
+
+@keyframes hotela-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.hotela-message-meta {
+  display: flex;
+  margin-top: 3px;
+  padding: 0 4px;
+}
+
+.hotela-message-meta.user {
+  justify-content: flex-end;
+}
+
+.hotela-message-time {
+  font-size: 10px;
+  color: var(--hotela-text-muted);
+}
+
+/* Typing Indicator */
+.hotela-typing-bubble {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 12px 16px;
+  background: var(--hotela-bot-bubble);
+  border-radius: 18px;
+  border-bottom-left-radius: 4px;
+}
+
+.hotela-typing-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--hotela-text-muted);
+  animation: hotela-dot-bounce 1.2s infinite ease-in-out;
+}
+
+.hotela-typing-dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.hotela-typing-dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes hotela-dot-bounce {
+  0%, 80%, 100% {
+    transform: translateY(0);
+    opacity: 0.4;
+  }
+  40% {
+    transform: translateY(-5px);
+    opacity: 1;
+  }
+}
+
+/* ==========================================================================
+   SUGGESTED OPTIONS PILLS
+   ========================================================================== */
+.hotela-suggestions-container {
+  padding: 8px 14px 10px;
+  background: #FCFCFC;
+  border-top: 1px solid var(--hotela-border-light);
+  flex-shrink: 0;
+}
+
+.hotela-suggestions-heading {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--hotela-text-muted);
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.hotela-suggestions-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.hotela-suggestion-chip {
+  background: var(--hotela-white);
+  border: 1px solid #7E1317;
+  color: #7E1317;
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.16s ease;
+  line-height: 1.2;
+}
+
+.hotela-suggestion-chip:hover {
+  background: #FAF0F1;
+  border-color: var(--hotela-primary);
+  transform: translateY(-1px);
+}
+
+.hotela-suggestion-chip:focus-visible {
+  outline: 2px solid var(--hotela-primary);
+  outline-offset: 1px;
+}
+
+/* ==========================================================================
+   ACTION CARDS (LEAD FORM & HANDOFF)
+   ========================================================================== */
+.hotela-action-card {
+  margin: 12px 0;
+  padding: 14px;
+  background: var(--hotela-white);
+  border: 1px solid rgba(139, 26, 29, 0.18);
+  border-radius: 14px;
+  box-shadow: 0 4px 14px rgba(31, 26, 43, 0.06);
+}
+
+.hotela-action-card-header strong {
+  display: block;
+  font-size: 14px;
+  color: var(--hotela-primary);
+  margin-bottom: 2px;
+}
+
+.hotela-action-card-header p {
+  margin: 0 0 10px;
+  font-size: 12px;
+  color: var(--hotela-text-muted);
+}
+
+.hotela-lead-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.hotela-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.hotela-form-group label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--hotela-text);
+}
+
+.hotela-form-group input {
+  padding: 8px 10px;
+  border: 1px solid var(--hotela-border);
+  border-radius: 8px;
+  font-size: 13px;
+  font-family: inherit;
+  outline: none;
+  background: #FAFAFA;
+  transition: border-color 0.18s ease;
+}
+
+.hotela-form-group input:focus {
+  border-color: var(--hotela-primary);
+  background: #FFFFFF;
+}
+
+.hotela-checkbox-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 11.5px;
+  color: #4B5563;
+  cursor: pointer;
+  margin-top: 4px;
+}
+
+.hotela-checkbox-label input {
+  margin-top: 2px;
+  accent-color: var(--hotela-primary);
+}
+
+.hotela-form-submit {
+  background: var(--hotela-primary);
+  color: var(--hotela-white);
+  border: none;
+  border-radius: 8px;
+  padding: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.18s ease;
+  margin-top: 4px;
+}
+
+.hotela-form-submit:hover:not(:disabled) {
+  background: var(--hotela-primary-hover);
+}
+
+.hotela-form-submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.hotela-form-error {
+  background: #FEE2E2;
+  color: #991B1B;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 11px;
+}
+
+.hotela-lead-success {
+  background: #F0FDF4;
+  border-color: #86EFAC;
+}
+
+.hotela-lead-success strong {
+  color: #166534;
+}
+
+.hotela-lead-success p {
+  margin: 6px 0 0;
+  font-size: 12px;
+  color: #15803D;
+}
+
+/* Handoff Card */
+.hotela-handoff-links {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.hotela-handoff-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: #FDF2F2;
+  border: 1px solid rgba(139, 26, 29, 0.2);
+  color: var(--hotela-primary);
+  font-size: 12.5px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.16s ease;
+}
+
+.hotela-handoff-btn:hover {
+  background: var(--hotela-primary);
+  color: var(--hotela-white);
+}
+
+/* ==========================================================================
+   INPUT COMPOSER & EMOJI POPUP
+   ========================================================================== */
+.hotela-composer-wrapper {
+  position: relative;
+  background: var(--hotela-white);
+  border-top: 1px solid var(--hotela-border-light);
+  padding: 10px 12px;
+  flex-shrink: 0;
+}
+
+.hotela-composer-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.hotela-composer-input {
+  flex: 1;
+  background: #F3F4F6;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  padding: 10px 16px;
+  font-size: 13.5px;
+  font-family: inherit;
+  color: var(--hotela-text);
+  outline: none;
+  transition: all 0.18s ease;
+}
+
+.hotela-composer-input:focus {
+  background: #FFFFFF;
+  border-color: var(--hotela-primary);
+  box-shadow: 0 0 0 3px rgba(139, 26, 29, 0.1);
+}
+
+.hotela-composer-input:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.hotela-composer-emoji-btn {
+  background: transparent;
+  border: none;
+  border-radius: 50%;
+  color: var(--hotela-primary);
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  transition: background 0.18s ease, transform 0.18s ease;
+  flex-shrink: 0;
+}
+
+.hotela-composer-emoji-btn:hover {
+  background: #FDE8E9;
+  transform: scale(1.05);
+}
+
+.hotela-composer-emoji-btn.is-active {
+  background: var(--hotela-primary);
+  color: var(--hotela-white);
+}
+
+.hotela-composer-emoji-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.hotela-composer-send-btn {
+  background: var(--hotela-primary);
+  color: var(--hotela-white);
+  border: none;
+  border-radius: 50%;
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.18s ease;
+  flex-shrink: 0;
+}
+
+.hotela-composer-send-btn:hover:not(:disabled) {
+  background: var(--hotela-primary-hover);
+  transform: scale(1.05);
+}
+
+.hotela-composer-send-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* Emoji Popover */
+.hotela-emoji-popover {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  right: 12px;
+  width: 280px;
+  max-width: calc(100% - 24px);
+  background: var(--hotela-white);
+  border: 1px solid var(--hotela-border);
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.16);
+  z-index: 1000;
+  overflow: hidden;
+  animation: hotela-popover-in 0.18s ease-out both;
+}
+
+@keyframes hotela-popover-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hotela-emoji-tabs {
+  display: flex;
+  background: #F9FAFB;
+  border-bottom: 1px solid var(--hotela-border);
+  padding: 4px;
+  gap: 2px;
+}
+
+.hotela-emoji-tab {
+  flex: 1;
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+  font-size: 15px;
+  padding: 6px 0;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: background 0.15s ease;
+}
+
+.hotela-emoji-tab:hover {
+  background: #E5E7EB;
+}
+
+.hotela-emoji-tab.is-active {
+  background: var(--hotela-white);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.hotela-emoji-grid {
+  padding: 8px 10px 12px;
+}
+
+.hotela-emoji-category-title {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--hotela-text-muted);
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.hotela-emoji-list {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 4px;
+  max-height: 160px;
+  overflow-y: auto;
+}
+
+.hotela-emoji-item {
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+  font-size: 18px;
+  padding: 5px;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.hotela-emoji-item:hover {
+  background: #F3F4F6;
+  transform: scale(1.15);
+}
+
+/* ==========================================================================
+   MOBILE RESPONSIVENESS
+   ========================================================================== */
+@media (max-width: 520px) {
+  .hotela-launcher-container {
+    bottom: 16px;
+    right: 16px;
+  }
+
+  .hotela-floating-launcher {
+    width: 62px;
+    height: 62px;
+  }
+
+  .hotela-launcher-avatar {
+    width: 46px;
+    height: 46px;
+  }
+
+  .hotela-window {
+    bottom: 0;
+    right: 0;
+    width: 100vw;
+    height: 100dvh;
+    border-radius: 0;
+    max-height: none;
+  }
+
+  .hotela-window-header {
+    padding: 10px 14px 12px;
+  }
+
+  .hotela-header-hero {
+    padding: 0 4px 4px;
+  }
+
+  .hotela-header-logo-circle {
+    width: 54px;
+    height: 54px;
+    margin-bottom: 6px;
+    padding: 6px;
+  }
+
+  .hotela-header-title {
+    font-size: 18px;
+  }
+
+  .hotela-header-subtitle {
+    font-size: 12px;
+  }
+
+  .hotela-chat-body {
+    margin: 0 6px 6px;
+    border-radius: 16px;
+  }
+
+  .hotela-emoji-popover {
+    width: calc(100vw - 32px);
+    right: 4px;
+  }
+}

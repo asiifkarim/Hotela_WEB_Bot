@@ -1,0 +1,13 @@
+fastapi
+uvicorn
+pydantic-settings
+chromadb
+sqlalchemy
+slowapi
+pyyaml
+tiktoken
+python-dotenv
+httpx
+pytest
+google-genai
+sentence-transformers

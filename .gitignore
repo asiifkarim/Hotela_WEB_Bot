@@ -1,0 +1,43 @@
+# Secrets and local environment files
+.env
+**/.env
+!.env.example
+!**/.env.example
+
+# Python environments and generated files
+venv/
+.venv/
+__pycache__/
+**/__pycache__/
+*.py[cod]
+.pytest_cache/
+**/.pytest_cache/
+.coverage
+htmlcov/
+
+# Node/Vite dependencies and build output
+node_modules/
+**/node_modules/
+dist/
+**/dist/
+.vite/
+**/.vite/
+*.tsbuildinfo
+
+# Runtime data and local service output
+data/
+backend/chroma_db/
+backend/eval/results/
+.run_logs/
+*.log
+
+# Archives and local tooling
+*.zip
+.freebuff/
+
+# Editor and operating-system files
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db

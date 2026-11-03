@@ -1,0 +1,20 @@
+{
+  "name": "hotela-bot",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Hotela public website assistant. The backend is Python/FastAPI; these scripts are a thin wrapper so the knowledge base and the evaluation can be rebuilt from the repository root.",
+  "scripts": {
+    "kb:build": "python backend\\scripts\\build_index.py",
+    "kb:check": "python backend\\scripts\\build_index.py --check",
+    "kb:validate": "python scripts\\validate_kb.py",
+    "rag:eval": "python backend\\eval\\run_eval.py",
+    "rag:eval:quick": "python backend\\eval\\run_eval.py --limit 10",
+    "rag:eval:update": "python backend\\eval\\run_eval.py --update-baseline",
+    "health": "python backend\\scripts\\health_check.py",
+    "test": "python -m pytest backend\\tests -q",
+    "api": "python -m uvicorn app.main:app --app-dir backend --host 127.0.0.1 --port 8000"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

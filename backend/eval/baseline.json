@@ -1,0 +1,63 @@
+{
+  "updated_at": "2026-10-22T12:08:05+00:00",
+  "questions": 56,
+  "kb_version": "bbab0a6a59a98faae75b3337256ac9ef6a95d2b7ecb6be9721e9ee074faaf25b",
+  "kb_chunks": 59,
+  "token_estimator": "tiktoken:cl100k_base",
+  "embedding_provider": "huggingface",
+  "embedding_model": "sentence-transformers/all-MiniLM-L6-v2",
+  "top_k": 6,
+  "min_similarity": 0.35,
+  "retrieval_config": {
+    "top_k": 6,
+    "min_similarity": 0.35,
+    "candidate_k": 12,
+    "hybrid": true,
+    "hybrid_rrf_k": 60,
+    "script_boost": 0.05,
+    "dedupe": true,
+    "answer_min_similarity": 0.35
+  },
+  "retrieval": {
+    "questions_scored": 50,
+    "k": 6,
+    "hit_1": 0.68,
+    "hit_k": 0.86,
+    "mrr": 0.7867,
+    "misses": 7,
+    "multi_step_questions": 10,
+    "multi_step_hit_k": 0.7,
+    "idk_context_hit_k": 0.7273,
+    "idk_questions": 11,
+    "latency_p50_ms": 36.5,
+    "latency_p95_ms": 45.4,
+    "rewrite_enabled": false
+  },
+  "generation": {
+    "measured": false,
+    "reason": "provider unavailable (LLMAuthError: Gemini refused the request (401/403). The API key or its Google Cloud project is not allowed to call this model. Check the Generative Language API for the project and the key, then restart the service.)"
+  },
+  "fallback": {
+    "measured": true,
+    "reason": "",
+    "answers_scored": 39,
+    "answer_correct": 30,
+    "answer_correct_rate": 0.7692,
+    "faithful": 35,
+    "faithfulness_rate": 0.8974,
+    "unsupported_number_answers": 0,
+    "handoff_questions": 12,
+    "handoff_correct": 12,
+    "handoff_rate": 1.0,
+    "redirect_questions": 3,
+    "redirect_correct": 3,
+    "redirect_rate": 1.0,
+    "smalltalk_questions": 2,
+    "smalltalk_correct": 2,
+    "smalltalk_rate": 1.0,
+    "language_checked": 39,
+    "language_correct": 39,
+    "language_rate": 1.0,
+    "request_errors": 0
+  }
+}

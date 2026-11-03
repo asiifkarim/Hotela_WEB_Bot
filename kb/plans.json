@@ -1,0 +1,44 @@
+{
+  "currency": "PKR",
+  "plans": [
+    {
+      "name": "Hotela Dine",
+      "price":20000, 
+      "duration_months": 6,
+      "billing_note": "PKR 20,000 per branch; 1 branch; billed every 6 months",
+      "features": [
+        "Table reservations",
+        "POS & billing",
+        "Menu & kitchen tickets",
+        "Online orders",
+        "Restaurant analytics"
+      ]
+    },
+    {
+      "name": "Hotela Suite",
+      "price": 35000,
+      "duration_months": 6,
+      "billing_note": "PKR 35,000 per branch; 1 branch; billed every 6 months",
+      "features": [
+        "Everything in Stay & Dine",
+        "Unified dashboard",
+        "Multi-branch & roles",
+        "Channel manager",
+        "Priority 24/7 support"
+      ]
+    },
+    {
+      "name": "Hotela Stay",
+      "price": 35000,
+      "duration_months": 6,
+      "billing_note": "PKR 35,000 per branch; 1 branch; billed every 6 months",
+      "features": [
+        "Room reservations",
+        "Front desk & check-in",
+        "Housekeeping",
+        "Channel manager",
+        "Hotel analytics"
+      ]
+    }
+  ]
+}
